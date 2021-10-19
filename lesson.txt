@@ -1,0 +1,13 @@
+thread : une fonction qui s execute en // a la fonctionprincipale (main), cela permet de fire de la programmation multitache.
+
+Ressources
+
+Theoretical approach and simple mathematical examples
+https://hpc.llnl.gov/training/tutorials/introduction-parallel-computing-tutorial
+
+threads
+https://franckh.developpez.com/tutoriels/posix/pthreads/#LI
+https://hpc-tutorials.llnl.gov/posix/abstract/
+
+simple thread exmpl
+https://www.educative.io/edpresso/how-to-create-a-simple-thread-in-c
