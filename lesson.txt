@@ -10,4 +10,4 @@ https://franckh.developpez.com/tutoriels/posix/pthreads/#LI
 https://hpc-tutorials.llnl.gov/posix/abstract/
 
 simple thread exmpl
-https://www.educative.io/edpresso/how-to-create-a-simple-thread-in-c
+https://www.educative.io/edpresso/how-to-create-a-simple-thread-in-c [ok]
