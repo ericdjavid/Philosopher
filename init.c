@@ -20,22 +20,25 @@ void* print_created(void *ptr)
     pthread_exit(NULL);
 }
 
-int init_thread(pthread_t id)
+int init_thread(t_data *data, pthread_t id)
 {
+    // FIXME: USE MUTEX
     pthread_create(&id, NULL, print_created, &str);
     //params : if, NULL, function to call, pointer to use (can be NULL);
 }
 
-int create_philo_threads(int philo_nb)
+int create_philo_threads(t_data *data, int philo_nb)
 {
     int i;
     pthread_t id[philo_nb - 1]; 
     
+    //TODO: t_elem first = id[0]
+    // then link them with liste chanees
     i = -1;
     while (++i < philo_nb)
     {
-        printf("\ncreating thread for philo %d", i);   
-        init_thread(id[i]);
+        printf("\ncreating thread for philo %d", i); 
+        init_thread(data, id[i]);
     }
     return (1);
 }
@@ -64,7 +67,7 @@ t_data *init_data(int argc, char **argv)
     t_data *data;
     data = malloc(sizeof(t_data));
     if (data == NULL)
-        return (FAILURE);
+        return (NULL);
     data->optionnal = FALSE;
     if (argc == 5)
         data->optionnal = TRUE;
@@ -72,6 +75,9 @@ t_data *init_data(int argc, char **argv)
     data->ttd = get_values(argv[2]);
     data->tte = get_values(argv[3]);
     data->tts = get_values(argv[4]);
+    data->first;
+    pthread_mutex_t mymutex = PTHREAD_MUTEX_INITIALIZER;
+    data->mutex = mymutex;
     printf("\n nb of philo : %d", data->nb_philo);
     printf("\n time to die : %d", data->ttd);
     printf("\n time to eat: %d", data->tte);

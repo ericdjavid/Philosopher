@@ -1,4 +1,3 @@
-thread : une fonction qui s execute en // a la fonction principale (main), cela permet de faire de la programmation multitache.
 
 Ressources
 
@@ -9,5 +8,41 @@ threads
 https://franckh.developpez.com/tutoriels/posix/pthreads/#LI
 https://hpc-tutorials.llnl.gov/posix/abstract/
 
-simple thread exmple
-[OK] https://www.educative.io/edpresso/how-to-create-a-simple-thread-in-c
+thread examples
+[OK] Simple - https://www.educative.io/edpresso/how-to-create-a-simple-thread-in-c
+Weird - https://hpc-tutorials.llnl.gov/posix/example_using_mutexes/
+
+
+THREADS
+Une fonction qui s execute en // a la fonction principale (main), cela permet de faire de 
+la programmation multitache ou parallel computing.
+
+Lorsque nous créons des threads puis nous laissons continuer par exemple la fonction main, 
+nous prenons le risque de terminer le programme complètement sans avoir pu exécuter les threads. 
+Nous devons en effet attendre que les différents threads créés se terminent. 
+Pour cela, il existe la fonction :
+int pthread_join (pthread_t th, void ** thread_return);
+Ses arguments sont dans l'ordre :
+Le thread à attendre ;
+La valeur de retour de la fonction du thread th.
+
+
+MUTEX   
+Le(s)mutex(mutual exclusion ou zone d'exclusion mutuelle) est(sont) 
+un système de verrou donnant ainsi une garantie sur la viabilité des 
+données manipulées par les threads. En effet, il arrive même très souvent 
+que plusieurs threads doivent accéder en lecture et/ou en écriture aux 
+mêmes variables. Si un thread possède le verrou, seulement celui-ci peut 
+lire et écrire sur les variables étant dans la portion de code protégée 
+(aussi appelée zone critique). Lorsque le thread a terminé, il libère 
+le verrou et un autre thread peut le prendre à son tour.
+
+Pour créer un mutex, il faut tout simplement déclarer une variable du 
+type pthread_mutex_t et l'initialiser avec la constante 
+PTHREAD_MUTEX_INITIALIZER soit par exemple :
+Les mutex permettent de determiner le debut d une zone critique. 
+Son seul argument est l'adresse d'un mutex de type pthread_mutex_t. La fonction
+renvoie 0 en cas de succes. 
+
+int pthread_mutex_lock (pthread_mutex_t * mutex);
+int pthread_mutex_unlock (pthread_mutex_t * mutex);

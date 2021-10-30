@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
                 /* ------RULES------ */
 // 1+ philo around the table
 // they can eat, think, sleep
@@ -52,11 +51,14 @@ int main(int argc, char **argv)
 
     printf("\nnumber of philo is %d", data->nb_philo);
 
-    if(!create_philo_threads(4))
+    if(!create_philo_threads(data, data->nb_philo))
     {
         printf("\nERROR");
         return 2;
     }
-    //TODO #1 creat 1 thread per philosopher (argv1)
+    //TODO: GARBAGE COLLECTOR TO FREE ALL
+    //TODO: Take fork process
+
+    //TODO: wait for end of threads before the end of main
     return 0;
 }
