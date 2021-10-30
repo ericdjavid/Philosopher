@@ -36,7 +36,7 @@ $(NAME):
 
 skiperror:
 	@echo "$<[$(C_CYAN)Compiling skipping errors$(C_END)]"
-	@gcc -ggdb -o $(NAME) $(SRC)
+	@gcc -pthread -ggdb -D_REENTRANT -o $(NAME) $(SRC)
 	@echo "$<[$(C_GREEN)OK$(C_END)]"
 
 

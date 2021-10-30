@@ -14,10 +14,11 @@
                 /* ------RULES------ */
 // 1+ philo around the table
 // they can eat, think, sleep
-// they can only do 1 think at time
+// they can only do 1 thing at time
 // they need 2 forks to eat spaghetti
 // when philo finished eating, he drops the forks and starts sleeping
 // when philo finished sleeping, he will start thinking
+// if time to die is spent and philo didn't eat, he dies
 // when a philo dies, simulation stops
 
 // ARGUMENTS :
@@ -45,11 +46,17 @@ int main(int argc, char **argv)
     printf("argc is %d", argc);
     if (argc != 5 && argc != 6)
         return (1);
-    s_data data;
-    init_data(&data, argc, argv);
-    //TODO #1 creat 1 thread per philosopher (argv1)
-    //pthread_t id[2]; 
+    t_data *data;
+    
+    data = init_data(argc, argv);
 
-    //pthread_create(&id[0], NULL, printNumber, &arg);
+    printf("\nnumber of philo is %d", data->nb_philo);
+
+    if(!create_philo_threads(4))
+    {
+        printf("\nERROR");
+        return 2;
+    }
+    //TODO #1 creat 1 thread per philosopher (argv1)
     return 0;
 }

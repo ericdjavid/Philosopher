@@ -22,24 +22,26 @@
 #define FAILURE -1
 #define SUCCESS 0
 
-typedef enum t_bool
+typedef enum s_bool
 {
     FALSE,
     TRUE
-} s_bool;
+} t_bool;
 
-typedef struct t_data
+typedef struct s_data
 {
-
     int nb_philo;
-    s_bool optionnal;
+    t_bool optionnal;
     int ttd;
     int tte;
     int tts;
 
-} s_data;
+} t_data;
 
-int init_data(s_data *data, int argc, char **argv);
+t_data *init_data(int argc, char **argv);
 int ft_strlen(char *str);
+int create_philo_threads(int philo_nb);
+int init_thread(pthread_t id);
+void* print_created(void *ptr);
 
 #endif

@@ -12,6 +12,34 @@
 
 #include "ft_philosopher.h"
 
+char *str = "lolcat";
+
+void* print_created(void *ptr)
+{
+    printf("\nthread successfully created with the pointer %p", &ptr);
+    pthread_exit(NULL);
+}
+
+int init_thread(pthread_t id)
+{
+    pthread_create(&id, NULL, print_created, &str);
+    //params : if, NULL, function to call, pointer to use (can be NULL);
+}
+
+int create_philo_threads(int philo_nb)
+{
+    int i;
+    pthread_t id[philo_nb - 1]; 
+    
+    i = -1;
+    while (++i < philo_nb)
+    {
+        printf("\ncreating thread for philo %d", i);   
+        init_thread(id[i]);
+    }
+    return (1);
+}
+
 int get_values(char *str)
 {
     int i;
@@ -31,9 +59,10 @@ int get_values(char *str)
     return (nb);
 }
 
-int init_data(s_data *data, int argc, char **argv)
+t_data *init_data(int argc, char **argv)
 {
-    data = malloc(sizeof(s_data));
+    t_data *data;
+    data = malloc(sizeof(t_data));
     if (data == NULL)
         return (FAILURE);
     data->optionnal = FALSE;
@@ -43,9 +72,9 @@ int init_data(s_data *data, int argc, char **argv)
     data->ttd = get_values(argv[2]);
     data->tte = get_values(argv[3]);
     data->tts = get_values(argv[4]);
-    printf("\n nb of philo : %d\n", data->nb_philo);
-    printf("\n time to die : %d\n", data->ttd);
-    printf("\n time to eat: %d\n", data->tte);
-    printf("\n time to sleep: %d\n", data->tts);
-    return (SUCCESS);
+    printf("\n nb of philo : %d", data->nb_philo);
+    printf("\n time to die : %d", data->ttd);
+    printf("\n time to eat: %d", data->tte);
+    printf("\n time to sleep: %d", data->tts);
+    return (data);
 }
