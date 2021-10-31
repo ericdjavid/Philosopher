@@ -16,7 +16,7 @@
 // they can only do 1 thing at time
 // they need 2 forks to eat spaghetti
 // when philo finished eating, he drops the forks and starts sleeping
-// when philo finished sleeping, he will start thinking
+// when philo finished sleeping, he will start thinking (meaning just wait for eat)
 // if time to die is spent and philo didn't eat, he dies
 // when a philo dies, simulation stops
 
@@ -30,9 +30,7 @@ timestamp_in_ms X is eating
 timestamp_in_ms X is sleeping
 timestamp_in_ms X is thinking
 timestamp_in_ms X died
-*/
 
-/* 
 other:
 - one fork between each philosopher
 - each philosopher is a thread
@@ -57,7 +55,7 @@ int main(int argc, char **argv)
         return 2;
     }
     //TODO: GARBAGE COLLECTOR TO FREE ALL
-    //TODO: Take fork process
+    //TODO: Take fourchette process
 
     //TODO: wait for end of threads before the end of main
     return 0;

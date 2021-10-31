@@ -13,6 +13,9 @@
 #ifndef FT_PHILOSOPHER_H
 #define FT_PHILOSOPHER_H
 
+/*
+** libraries
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
@@ -32,6 +35,8 @@ typedef struct s_elem
 {
     int id_philo;
     pthread_t thread;
+    pthread_mutex_t left_fork;
+    pthread_mutex_t *right_fork;
     struct s_elem *next;
 }   t_elem;
 typedef struct s_data
@@ -41,11 +46,15 @@ typedef struct s_data
     int ttd;
     int tte;
     int tts;
-    pthread_mutex_t mutex;
-    t_elem first;
+    pthread_mutex_t print_mutex;
+    //t_elem[nb_philo];
+    //t_elem first;
 
 } t_data;
 
+/*
+** functions
+*/
 t_data *init_data(int argc, char **argv);
 int ft_strlen(char *str);
 int create_philo_threads(t_data *data, int philo_nb);

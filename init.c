@@ -24,7 +24,7 @@ int init_thread(t_data *data, pthread_t id)
 {
     // FIXME: USE MUTEX
     pthread_create(&id, NULL, print_created, &str);
-    //params : if, NULL, function to call, pointer to use (can be NULL);
+    //params : mutex id, NULL, function to call, pointer to use (can be NULL);
 }
 
 int create_philo_threads(t_data *data, int philo_nb)
@@ -75,9 +75,8 @@ t_data *init_data(int argc, char **argv)
     data->ttd = get_values(argv[2]);
     data->tte = get_values(argv[3]);
     data->tts = get_values(argv[4]);
-    data->first;
     pthread_mutex_t mymutex = PTHREAD_MUTEX_INITIALIZER;
-    data->mutex = mymutex;
+    data->print_mutex = mymutex;
     printf("\n nb of philo : %d", data->nb_philo);
     printf("\n time to die : %d", data->ttd);
     printf("\n time to eat: %d", data->tte);

@@ -12,15 +12,24 @@ thread examples
 [OK] Simple - https://www.educative.io/edpresso/how-to-create-a-simple-thread-in-c
 Weird - https://hpc-tutorials.llnl.gov/posix/example_using_mutexes/
 
+Tuto :
+https://github.com/iciamyplant/Philosophers
+https://www.youtube.com/watch?v=o_GbRujGCnM&t=377s
+http://pficheux.free.fr/articles/lmf/threads/
 
 THREADS
 Une fonction qui s execute en // a la fonction principale (main), cela permet de faire de 
 la programmation multitache ou parallel computing.
 
+int pthread_create (pthread_t * thread, pthread_attr_t * attr, void * (* start_routine) (void *), void * arg);
+params : mutex id, NULL, function to call, pointer to use (can be NULL);
+
+
 Lorsque nous créons des threads puis nous laissons continuer par exemple la fonction main, 
 nous prenons le risque de terminer le programme complètement sans avoir pu exécuter les threads. 
 Nous devons en effet attendre que les différents threads créés se terminent. 
 Pour cela, il existe la fonction :
+
 int pthread_join (pthread_t th, void ** thread_return);
 Ses arguments sont dans l'ordre :
 Le thread à attendre ;
@@ -46,3 +55,9 @@ renvoie 0 en cas de succes.
 
 int pthread_mutex_lock (pthread_mutex_t * mutex);
 int pthread_mutex_unlock (pthread_mutex_t * mutex);
+
+1. Chaque fourchette a son propre mutex qui permet de la 
+verrouiller lorsqu'un philosophe la prend.
+
+2. On utilise aussi un mutex partagé par tous les philosophes 
+qui permet de print du texte sans mélange comme dans l'exemple au dessus.
