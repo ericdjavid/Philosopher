@@ -31,14 +31,14 @@ typedef enum s_bool
     TRUE
 } t_bool;
 
-typedef struct s_elem 
+typedef struct s_philo 
 {
     int id_philo;
     pthread_t thread;
     pthread_mutex_t left_fork;
     pthread_mutex_t *right_fork;
     struct s_elem *next;
-}   t_elem;
+}   t_philo;
 typedef struct s_data
 {
     int nb_philo;

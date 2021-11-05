@@ -12,8 +12,6 @@
 
 #include "ft_philosopher.h"
 
-char *str = "lolcat";
-
 void* print_created(void *ptr)
 {
     printf("\nthread successfully created with the pointer %p", &ptr);
@@ -23,17 +21,18 @@ void* print_created(void *ptr)
 int init_thread(t_data *data, pthread_t id)
 {
     // FIXME: USE MUTEX
-    pthread_create(&id, NULL, print_created, &str);
+    pthread_create(&id, NULL, print_created, "lolcat");
     //params : mutex id, NULL, function to call, pointer to use (can be NULL);
 }
 
 int create_philo_threads(t_data *data, int philo_nb)
 {
     int i;
-    pthread_t id[philo_nb - 1]; 
+    pthread_t id[philo_nb - 1];
+    t_philo *philo[philo_nb];
     
     //TODO: t_elem first = id[0]
-    // then link them with liste chanees
+    // then link them with liste chainees
     i = -1;
     while (++i < philo_nb)
     {
