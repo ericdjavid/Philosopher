@@ -12,33 +12,35 @@
 
 #include "ft_philosopher.h"
 
-void* print_created(void *ptr)
+void *affect_forks(void *ptr)
 {
-    printf("\nthread successfully created with the pointer %p", &ptr);
+    printf("\nthread created for philo");
     pthread_exit(NULL);
 }
 
-int init_thread(t_data *data, pthread_t id)
-{
-    // FIXME: USE MUTEX
-    pthread_create(&id, NULL, print_created, "lolcat");
-    //params : mutex id, NULL, function to call, pointer to use (can be NULL);
-}
-
+//START BY 1 PHILO
 int create_philo_threads(t_data *data, int philo_nb)
 {
     int i;
-    pthread_t id[philo_nb - 1];
-    t_philo *philo[philo_nb];
-    
-    //TODO: t_elem first = id[0]
-    // then link them with liste chainees
+    t_philo *philo;
+    pthread_t td;
+    pthread_mutex_t lf;
+
+    philo = malloc(sizeof(t_philo));
+    philo->id = 1;
+    philo->td = td;
+    philo->next = NULL;
+    philo->left_fork = lf;
+    data->first = philo;
+    pthread_create(philo->td, NULL, affect_forks, data);
+
     i = -1;
-    while (++i < philo_nb)
-    {
-        printf("\ncreating thread for philo %d", i); 
-        init_thread(data, id[i]);
-    }
+    //    while (++i < philo_nb)
+    //    {
+    //        printf("\ncreating thread for philo %d", i);
+    //        pthread_create(&id, NULL, print_created, "lolcat");
+    //    }
+    free(philo);
     return (1);
 }
 

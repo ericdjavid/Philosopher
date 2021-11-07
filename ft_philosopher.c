@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-                /* ------RULES------ */
+/* ------RULES------ */
 // 1+ philo around the table
 // they can eat, think, sleep
 // they can only do 1 thing at time
@@ -40,16 +40,15 @@ other:
 
 int main(int argc, char **argv)
 {
-    printf("argc is %d", argc);
+    t_data *data;
+
     if (argc != 5 && argc != 6)
         return (1);
-    t_data *data;
-    
     data = init_data(argc, argv);
 
     printf("\nnumber of philo is %d", data->nb_philo);
 
-    if(!create_philo_threads(data, data->nb_philo))
+    if (!create_philo_threads(data, data->nb_philo))
     {
         printf("\nERROR");
         return 2;
