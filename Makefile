@@ -24,8 +24,9 @@ C_END		=	\e[0m
 NAME = philo
 FLAGS = -Wall -Wextra -Werror
 SRC =   ft_philosopher.c          \
-		init.c				  	  \
-		utils.c					  \
+		ft_init.c				  	  \
+		ft_utils.c					  \
+		ft_free_all.c			  \
 
 all: $(NAME)
 
@@ -36,7 +37,7 @@ $(NAME):
 
 skiperror:
 	@echo "$<[$(C_CYAN)Compiling skipping errors$(C_END)]"
-	@gcc -pthread -ggdb -D_REENTRANT -o $(NAME) $(SRC)
+	@gcc -g -pthread -ggdb -D_REENTRANT -o $(NAME) $(SRC)
 	@echo "$<[$(C_GREEN)OK$(C_END)]"
 
 

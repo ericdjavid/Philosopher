@@ -23,24 +23,21 @@ int create_philo_threads(t_data *data, int philo_nb)
 {
     int i;
     t_philo *philo;
-    pthread_t td;
-    pthread_mutex_t lf;
+    pthread_t pt1;
 
-    philo = malloc(sizeof(t_philo));
+    philo = malloc(sizeof(*philo));
+    philo->td = &pt1;
     philo->id = 1;
-    philo->td = td;
     philo->next = NULL;
-    philo->left_fork = lf;
     data->first = philo;
-    pthread_create(philo->td, NULL, affect_forks, data);
+    pthread_create(&pt1, NULL, affect_forks, data);
 
-    i = -1;
     //    while (++i < philo_nb)
     //    {
     //        printf("\ncreating thread for philo %d", i);
     //        pthread_create(&id, NULL, print_created, "lolcat");
     //    }
-    free(philo);
+    sleep(3);
     return (1);
 }
 
@@ -66,7 +63,7 @@ int get_values(char *str)
 t_data *init_data(int argc, char **argv)
 {
     t_data *data;
-    data = malloc(sizeof(t_data));
+    data = malloc(sizeof(*data));
     if (data == NULL)
         return (NULL);
     data->optionnal = FALSE;
@@ -76,7 +73,7 @@ t_data *init_data(int argc, char **argv)
     data->ttd = get_values(argv[2]);
     data->tte = get_values(argv[3]);
     data->tts = get_values(argv[4]);
-    pthread_mutex_t mymutex = PTHREAD_MUTEX_INITIALIZER;
+    pthread_mutex_t mymutex;
     data->print_mutex = mymutex;
     printf("\n nb of philo : %d", data->nb_philo);
     printf("\n time to die : %d", data->ttd);

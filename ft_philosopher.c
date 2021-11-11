@@ -46,16 +46,18 @@ int main(int argc, char **argv)
         return (1);
     data = init_data(argc, argv);
 
-    printf("\nnumber of philo is %d", data->nb_philo);
 
-    if (!create_philo_threads(data, data->nb_philo))
-    {
-        printf("\nERROR");
-        return 2;
+   if (!create_philo_threads(data, data->nb_philo))
+   {
+       printf("\nERROR");
+       return 2;
     }
-    //TODO: GARBAGE COLLECTOR TO FREE ALL
-    //TODO: Take fourchette process
 
     //TODO: wait for end of threads before the end of main
+    (void)pthread_join((pthread_t)data->first->td, NULL);
+
+    ft_free_all(data);
+    //TODO: Take fourchette process
+
     return 0;
 }
