@@ -20,7 +20,7 @@
 // if time to die is spent and philo didn't eat, he dies
 // when a philo dies, simulation stops
 
-// ARGUMENTS :
+// ARGUMENTS (all the times are in ms):
 //  ./philosopher [nb_pilo_&_forks(1 to n)] [time_to_die] [time_to_eat] [time_to_sleep] [nb_eat_before_end (optionnal)]
 
 /* 
@@ -41,11 +41,11 @@ other:
 int main(int argc, char **argv)
 {
     t_data *data;
+    void *ret;
 
     if (argc != 5 && argc != 6)
         return (1);
     data = init_data(argc, argv);
-
 
    if (!create_philo_threads(data, data->nb_philo))
    {
@@ -53,11 +53,18 @@ int main(int argc, char **argv)
        return 2;
     }
 
+    /* deal with the time */
+    //int time = actual_time();
+    //ft_usleep(2000);
+    //int time2 = actual_time();
+    //printf("\n We've been waiting for %d ms \n", time2 - time);
+
     //TODO: wait for end of threads before the end of main
-    (void)pthread_join((pthread_t)data->first->td, NULL);
+    //(void)pthread_join(data->first->td,&ret);
+    (void)pthread_join(data->first->td,&ret);
 
     ft_free_all(data);
-    //TODO: Take fourchette process
+    //TODO: do fourchette process
 
     return 0;
 }

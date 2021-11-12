@@ -27,6 +27,7 @@ SRC =   ft_philosopher.c          \
 		ft_init.c				  	  \
 		ft_utils.c					  \
 		ft_free_all.c			  \
+		ft_process.c				\
 
 all: $(NAME)
 

@@ -36,10 +36,15 @@ typedef enum s_bool
 typedef struct s_philo
 {
     int                 id;
-    pthread_t           *td;
+    pthread_t           td;
     pthread_mutex_t     left_fork;
     pthread_mutex_t     *right_fork;
     struct s_philo      *next;
+    t_bool              has_eaten;
+    t_bool              has_slept;
+    t_bool              has_think;
+    struct s_data              *data;
+    long int            initial_time;
 } t_philo;
 
 typedef struct s_data
@@ -49,17 +54,25 @@ typedef struct s_data
     int             ttd;
     int             tte;
     int             tts;
-    pthread_mutex_t print_mutex;
+    pthread_mutex_t print_action;
     t_philo         *first;
+    t_bool          is_philo_dead;
+    long int initial_time;
 } t_data;
 
 /*
 ** functions
 */
-t_data *init_data(int argc, char **argv);
-int ft_strlen(char *str);
-int create_philo_threads(t_data *data, int philo_nb);
-void *affect_forks(void *ptr);
-int ft_free_all(t_data *data);
+t_data      *init_data(int argc, char **argv);
+int         ft_strlen(char *str);
+int         create_philo_threads(t_data *data, int philo_nb);
+void        *affect_forks(void *ptr);
+int         ft_free_all(t_data *data);
+int         init_philo(t_data *data);
+void	    ft_usleep(long int time_in_ms);
+long int    actual_time(void);
+void* ft_live(void *data);
+int print_action(int id, long int tms, char *action);
+t_bool reach_die(t_philo *philo, long int actual);
 
 #endif
