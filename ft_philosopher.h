@@ -23,6 +23,9 @@
 
 #define FAILURE -1
 #define SUCCESS 0
+#define PINK "\033[95m"
+#define END "\033[0m"
+#define YELLOW "\033[93m"
 
 typedef enum s_bool
 {
@@ -45,6 +48,7 @@ typedef struct s_philo
     t_bool              has_think;
     struct s_data              *data;
     long int            initial_time;
+    long int            eaten_time;
 } t_philo;
 
 typedef struct s_data
@@ -55,6 +59,7 @@ typedef struct s_data
     int             tte;
     int             tts;
     pthread_mutex_t print_action;
+    pthread_t       death;
     t_philo         *first;
     t_bool          is_philo_dead;
     long int initial_time;
@@ -72,7 +77,7 @@ int         init_philo(t_data *data);
 void	    ft_usleep(long int time_in_ms);
 long int    actual_time(void);
 void* ft_live(void *data);
-int print_action(int id, long int tms, char *action);
+int print_action(t_philo *philo, char *action);
 t_bool reach_die(t_philo *philo, long int actual);
 
 #endif

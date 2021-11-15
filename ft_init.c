@@ -17,7 +17,6 @@ void *affect_forks(void *data)
     printf("\nthread created for philo");
 }
 
-//TODO: ADD PHILO FUNCTION WITH LISTE CHAINEES
 int init_philo(t_data *data)
 {
     t_philo *philo;
@@ -30,6 +29,7 @@ int init_philo(t_data *data)
     philo->has_eaten = FALSE;
     philo->has_think = FALSE;
     philo->has_slept = FALSE;
+    philo->eaten_time = 0;
     philo->data = data;
     philo->initial_time = 0;
     philo->right_fork = NULL;
@@ -52,6 +52,7 @@ t_bool  new_philo(t_philo *first, int nb)
     philo->has_slept = FALSE;
     philo->data = first->data;
     philo->initial_time = 0;
+    philo->eaten_time = 0;
     philo->right_fork = NULL;
     while (tmp->next != NULL)
         tmp = tmp->next;
@@ -85,7 +86,7 @@ int create_philo_threads(t_data *data, int philo_nb)
     
     first = data->first;
     add_philo_chain(data->nb_philo, first);
-    //ft_usleep(10000);
+    //TODO: create thread for all
     pthread_create(&data->first->td, NULL, ft_live, (void*)first);
 
     return (1);
@@ -113,7 +114,6 @@ int get_values(char *str)
 t_data *init_data(int argc, char **argv)
 {
     t_data *data;
-    pthread_mutex_t mymutex;
 
     data = malloc(sizeof(*data));
     if (data == NULL)
@@ -126,7 +126,7 @@ t_data *init_data(int argc, char **argv)
     data->tte = get_values(argv[3]);
     data->tts = get_values(argv[4]);
     data->is_philo_dead = FALSE;
-    data->print_action = mymutex;
+    pthread_mutex_init(&data->print_action, NULL);
     data->initial_time = (long int)actual_time();
     printf("\n nb of philo : %d", data->nb_philo);
     printf("\n time to die : %d", data->ttd);

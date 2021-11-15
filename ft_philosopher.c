@@ -61,7 +61,9 @@ int main(int argc, char **argv)
 
     //TODO: wait for end of threads before the end of main
     //(void)pthread_join(data->first->td,&ret);
+
     (void)pthread_join(data->first->td,&ret);
+    (void)pthread_join(data->death,&ret);
 
     ft_free_all(data);
     //TODO: do fourchette process

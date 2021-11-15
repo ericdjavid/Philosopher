@@ -32,7 +32,7 @@ SRC =   ft_philosopher.c          \
 all: $(NAME)
 
 $(NAME):
-	gcc -g -fsanitize=address $(FLAGS) -o $(NAME) $(SRC) 
+	gcc -g -fsanitize=thread $(FLAGS) -o $(NAME) $(SRC) 
 	@echo "$<[$(C_PURPLE)COMPILING$(C_END)]"
 	@echo "$<[$(C_GREEN)OK$(C_END)]"
 
@@ -40,8 +40,6 @@ skiperror:
 	@echo "$<[$(C_CYAN)Compiling skipping errors$(C_END)]"
 	@gcc -g -pthread -ggdb -D_REENTRANT -o $(NAME) $(SRC)
 	@echo "$<[$(C_GREEN)OK$(C_END)]"
-
-
 
 clean:
 	@rm -rf *.o
