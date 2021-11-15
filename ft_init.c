@@ -37,40 +37,42 @@ int init_philo(t_data *data)
     return (SUCCESS);
 }
 
-t_philo *new_philo(t_data *data, int nb)
+t_bool  new_philo(t_philo *first, int nb)
 {
     t_philo *philo;
+    t_philo *tmp;
 
     philo = malloc(sizeof(*philo));
-    if (!philo)
-        return (NULL);
+    if (!philo || !first)
+        return (FAILURE);
+    tmp = first;
     philo->id = nb;
-    philo->next = NULL;
     philo->has_eaten = FALSE;
     philo->has_think = FALSE;
     philo->has_slept = FALSE;
-    philo->data = data;
+    philo->data = first->data;
     philo->initial_time = 0;
     philo->right_fork = NULL;
+    while (tmp->next != NULL)
+        tmp = tmp->next;
+    tmp->next = philo;
+    philo->next = NULL;    
     printf("\nSuccessfully created philo n. %d\n", nb);
-    return (new_philo);
+    return (SUCCESS);
 }
 
 int add_philo_chain(int philo_nb, t_philo *first)
 {
     t_philo *tmp;
+    t_philo *tmp2;
     int     i;
 
-    tmp = first;
     i = 1;
     printf("\nphilo nb is %d\n", philo_nb);
-    while (i < philo_nb)
+    tmp = first;
+    while (i++ < philo_nb)
     {
-        //TODO: PROBLEM
-        tmp->next = new_philo(first->data, ++i);
-        if (!tmp->next)
-            return (FAILURE);
-        tmp = tmp->next;
+        new_philo(first, i);
     }
     return (SUCCESS); 
 }
@@ -83,7 +85,7 @@ int create_philo_threads(t_data *data, int philo_nb)
     
     first = data->first;
     add_philo_chain(data->nb_philo, first);
-    ft_usleep(10000);
+    //ft_usleep(10000);
     pthread_create(&data->first->td, NULL, ft_live, (void*)first);
 
     return (1);
