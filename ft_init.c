@@ -37,7 +37,7 @@ int init_philo(t_data *data)
     return (SUCCESS);
 }
 
-t_bool  new_philo(t_philo *first, int nb)
+t_bool new_philo(t_philo *first, int nb)
 {
     t_philo *philo;
     t_philo *tmp;
@@ -57,7 +57,7 @@ t_bool  new_philo(t_philo *first, int nb)
     while (tmp->next != NULL)
         tmp = tmp->next;
     tmp->next = philo;
-    philo->next = NULL;    
+    philo->next = NULL;
     printf("\nSuccessfully created philo n. %d\n", nb);
     return (SUCCESS);
 }
@@ -66,7 +66,7 @@ int add_philo_chain(int philo_nb, t_philo *first)
 {
     t_philo *tmp;
     t_philo *tmp2;
-    int     i;
+    int i;
 
     i = 1;
     printf("\nphilo nb is %d\n", philo_nb);
@@ -75,21 +75,28 @@ int add_philo_chain(int philo_nb, t_philo *first)
     {
         new_philo(first, i);
     }
-    return (SUCCESS); 
+    return (SUCCESS);
 }
 
 int create_philo_threads(t_data *data, int philo_nb)
 {
     t_philo *first;
+    int ret;
+
+    ret = 0;
     if (init_philo(data))
-        return (FAILURE);    
-    
+        return (FAILURE);
+
     first = data->first;
     add_philo_chain(data->nb_philo, first);
     //TODO: create thread for all
-    pthread_create(&data->first->td, NULL, ft_live, (void*)first);
-
-    return (1);
+    ret = pthread_create(&data->first->td, NULL, ft_live, (void *)first);
+    if (ret != 0)
+    {
+        printf("Error : issue while thread creation");
+        return (FAILURE);
+    }
+    return (SUCCESS);
 }
 
 int get_values(char *str)
@@ -127,6 +134,8 @@ t_data *init_data(int argc, char **argv)
     data->tts = get_values(argv[4]);
     data->is_philo_dead = FALSE;
     pthread_mutex_init(&data->print_action, NULL);
+    pthread_mutex_init(&data->death_mutex, NULL);
+    pthread_mutex_init(&data->eat_mutex, NULL);
     data->initial_time = (long int)actual_time();
     printf("\n nb of philo : %d", data->nb_philo);
     printf("\n time to die : %d", data->ttd);

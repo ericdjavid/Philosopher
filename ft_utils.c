@@ -12,22 +12,30 @@
 
 #include "ft_philosopher.h"
 
-int ft_strlen(char *str)
+void print_tms(t_philo *clone)
 {
-    int i;
-
-    if (!str)
-        return (FAILURE);
-    i = 0;
-    while (str[i])
-        i++;
-    return (i);
+	pthread_mutex_lock(&clone->data->print_action);
+	printf(YELLOW "\n%ld ms\n" END,
+		   (actual_time() - clone->initial_time));
+	pthread_mutex_unlock(&clone->data->print_action);
 }
 
-long int    actual_time(void)
+int ft_strlen(char *str)
 {
-	long int			time;
-	struct timeval		current_time;
+	int i;
+
+	if (!str)
+		return (FAILURE);
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+long int actual_time(void)
+{
+	long int time;
+	struct timeval current_time;
 
 	time = 0;
 	if (gettimeofday(&current_time, NULL) == -1)
@@ -36,9 +44,9 @@ long int    actual_time(void)
 	return (time);
 }
 
-void	ft_usleep(long int time_in_ms)
+void ft_usleep(long int time_in_ms)
 {
-	long int	start_time;
+	long int start_time;
 
 	start_time = 0;
 	start_time = actual_time();

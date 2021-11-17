@@ -16,7 +16,7 @@
 // they can only do 1 thing at time
 // they need 2 forks to eat spaghetti
 // when philo finished eating, he drops the forks and starts sleeping
-// when philo finished sleeping, he will start thinking (meaning just wait for eat)
+// when philo finished sleeping, he will start thinking (meaning just wait for eat, no tms in params)
 // if time to die is spent and philo didn't eat, he dies
 // when a philo dies, simulation stops
 
@@ -47,24 +47,18 @@ int main(int argc, char **argv)
         return (1);
     data = init_data(argc, argv);
 
-   if (!create_philo_threads(data, data->nb_philo))
-   {
-       printf("\nERROR");
-       return 2;
-    }
-
-    /* deal with the time */
-    //int time = actual_time();
-    //ft_usleep(2000);
-    //int time2 = actual_time();
-    //printf("\n We've been waiting for %d ms \n", time2 - time);
+    if (create_philo_threads(data, data->nb_philo) == FAILURE)
+        return 2;
 
     //TODO: wait for end of threads before the end of main
     //(void)pthread_join(data->first->td,&ret);
 
-    (void)pthread_join(data->first->td,&ret);
-    (void)pthread_join(data->death,&ret);
+    (void)pthread_join(data->first->td, &ret);
+    (void)pthread_join(data->death, &ret);
 
+    pthread_mutex_destroy(&data->death_mutex);
+    pthread_mutex_destroy(&data->eat_mutex);
+    pthread_mutex_destroy(&data->print_action);
     ft_free_all(data);
     //TODO: do fourchette process
 

@@ -1,22 +1,4 @@
 
-Ressources
-
-Theoretical approach and simple mathematical examples
-[OK]https://hpc.llnl.gov/training/tutorials/introduction-parallel-computing-tutorial
-
-threads
-https://franckh.developpez.com/tutoriels/posix/pthreads/#LI
-https://hpc-tutorials.llnl.gov/posix/abstract/
-
-thread examples
-[OK] Simple - https://www.educative.io/edpresso/how-to-create-a-simple-thread-in-c
-Weird - https://hpc-tutorials.llnl.gov/posix/example_using_mutexes/
-
-Tuto :
-https://github.com/iciamyplant/Philosophers
-https://www.youtube.com/watch?v=o_GbRujGCnM&t=377s
-http://pficheux.free.fr/articles/lmf/threads/
-
 THREADS
 Une fonction qui s execute en // a la fonction principale (main), cela permet de faire de 
 la programmation multitache ou parallel computing.
@@ -61,3 +43,23 @@ verrouiller lorsqu'un philosophe la prend.
 
 2. On utilise aussi un mutex partagé par tous les philosophes 
 qui permet de print du texte sans mélange comme dans l'exemple au dessus.
+
+
+Ressources
+
+Theoretical approach and simple mathematical examples
+[OK]https://hpc.llnl.gov/training/tutorials/introduction-parallel-computing-tutorial
+[OK]https://perso.ens-lyon.fr/michael.rao/ASR2/cours_slides_7.pdf
+
+threads
+https://franckh.developpez.com/tutoriels/posix/pthreads/#LI
+https://hpc-tutorials.llnl.gov/posix/abstract/
+
+thread examples
+[OK] Simple - https://www.educative.io/edpresso/how-to-create-a-simple-thread-in-c
+Weird - https://hpc-tutorials.llnl.gov/posix/example_using_mutexes/
+
+Tuto :
+https://github.com/iciamyplant/Philosophers
+https://www.youtube.com/watch?v=o_GbRujGCnM&t=377s
+http://pficheux.free.fr/articles/lmf/threads/
