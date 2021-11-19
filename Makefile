@@ -24,10 +24,11 @@ C_END		=	\e[0m
 NAME = philo
 FLAGS = -Wall -Wextra -Werror
 SRC =   ft_philosopher.c          \
-		ft_init.c				  	  \
-		ft_utils.c					  \
-		ft_free_all.c			  \
+		ft_init.c				   \
+		ft_utils.c					\
+		ft_free_all.c			  	\
 		ft_process.c				\
+		ft_death.c					\
 
 all: $(NAME)
 

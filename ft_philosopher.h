@@ -44,7 +44,7 @@ typedef struct s_philo
     pthread_mutex_t left_fork;
     pthread_mutex_t *right_fork;
     struct s_philo *next;
-    t_bool has_eaten;
+    t_bool start_eating;
     t_bool has_slept;
     t_bool has_think;
     struct s_data *data;
@@ -66,7 +66,6 @@ typedef struct s_data
     pthread_t death;
     t_philo *first;
     t_bool is_philo_dead;
-    long int initial_time;
 } t_data;
 
 /*
@@ -85,5 +84,7 @@ int print_action(t_philo *philo, char *action);
 t_bool reach_die(t_philo *philo, long int actual);
 t_bool is_philo_dead(t_data *data, t_bool is_dead);
 void print_tms(t_philo *clone);
+void *death_upcoming(void *phil);
+t_bool is_philo_dead(t_data *data, t_bool is_dead);
 
 #endif
