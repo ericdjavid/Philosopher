@@ -39,6 +39,7 @@ void *ft_live(void *philo)
     clone->initial_time = actual_time();
     //create death thread
     pthread_create(&clone->data->death, NULL, death_upcoming, (void *)philo);
+    // pthread_create(&clone->death, NULL, death_upcoming, (void *)clone);
     while (is_philo_dead(clone->data, FALSE) == FALSE)
     {
         i++;
@@ -74,6 +75,7 @@ void *ft_live(void *philo)
             clone->has_slept = FALSE;
         }
         pthread_mutex_unlock(&clone->data->eat_mutex);
+        ft_usleep(50);
     }
     printf("\nFinished loop\n");
     pthread_exit(NULL);

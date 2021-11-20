@@ -41,6 +41,7 @@ typedef struct s_philo
 {
     int id;
     pthread_t td;
+    // pthread_t death;
     pthread_mutex_t left_fork;
     pthread_mutex_t *right_fork;
     struct s_philo *next;

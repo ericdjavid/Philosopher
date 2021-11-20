@@ -38,6 +38,31 @@ other:
 */
 #include "ft_philosopher.h"
 
+void join_threads(t_philo *first)
+{
+    t_philo *tmp;
+
+    tmp = first;
+    while (tmp->next)
+    {
+        (void)pthread_join(tmp->td, NULL);
+        // (void)pthread_join(tmp->death, NULL);
+        tmp = tmp->next;
+    }
+}
+
+void destroy_mutex(t_philo *first)
+{
+    t_philo *tmp;
+
+    tmp = first;
+    while (tmp->next)
+    {
+        pthread_mutex_destroy(&tmp->left_fork);
+        tmp = tmp->next;
+    }
+}
+
 int main(int argc, char **argv)
 {
     t_data *data;
@@ -51,14 +76,15 @@ int main(int argc, char **argv)
         return 2;
 
     //TODO: wait for end of threads before the end of main
-    //(void)pthread_join(data->first->td,&ret);
-
-    (void)pthread_join(data->first->td, &ret);
+    join_threads(data->first);
+    // (void)pthread_join(data->first->td, &ret);
     (void)pthread_join(data->death, &ret);
+    //Conditional jump or move depends on uninitialised value(s) ??
 
     pthread_mutex_destroy(&data->death_mutex);
     pthread_mutex_destroy(&data->eat_mutex);
     pthread_mutex_destroy(&data->print_action);
+    // destroy_mutex(data->first);
     ft_free_all(data);
     //TODO: do fourchette process
 
