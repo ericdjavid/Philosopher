@@ -61,9 +61,10 @@ void destroy_mutex(t_philo *first)
     tmp = first;
     while (tmp->next)
     {
-        pthread_mutex_destroy(&tmp->left_fork);
         tmp = tmp->next;
+        pthread_mutex_destroy(&tmp->left_fork);
     }
+    pthread_mutex_destroy(&first->left_fork);
 }
 
 int main(int argc, char **argv)
@@ -78,7 +79,6 @@ int main(int argc, char **argv)
     if (create_philo_threads(data, data->nb_philo) == FAILURE)
         return 2;
 
-    //TODO: wait for end of threads before the end of main
     join_threads(data->first);
     // (void)pthread_join(data->first->next->death, &ret);
     //Conditional jump or move depends on uninitialised value(s) ??
@@ -86,9 +86,7 @@ int main(int argc, char **argv)
     pthread_mutex_destroy(&data->death_mutex);
     pthread_mutex_destroy(&data->eat_mutex);
     pthread_mutex_destroy(&data->print_action);
-    // destroy_mutex(data->first);
+    destroy_mutex(data->first);
     ft_free_all(data);
-    //TODO: do fourchette process
-
     return 0;
 }

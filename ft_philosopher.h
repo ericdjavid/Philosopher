@@ -66,6 +66,7 @@ typedef struct s_data
     pthread_mutex_t print_action;
     pthread_mutex_t death_mutex;
     pthread_mutex_t eat_mutex;
+    pthread_mutex_t sleep_think_mutex;
     // pthread_t death;
     t_philo *first;
     t_bool is_philo_dead;

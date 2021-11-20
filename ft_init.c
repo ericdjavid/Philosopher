@@ -35,7 +35,7 @@ int init_philo(t_data *data)
     pthread_mutex_init(&philo->left_fork, NULL);
     philo->right_fork = NULL;
     data->first = philo;
-    printf("\nSuccessfully created philo n.1\n");
+    // printf("\nSuccessfully created philo n.1\n");
     return (SUCCESS);
 }
 
@@ -61,7 +61,7 @@ t_bool new_philo(t_philo *first, int nb)
         tmp = tmp->next;
     tmp->next = philo;
     philo->next = NULL;
-    printf("\nSuccessfully created philo n. %d\n", nb);
+    // printf("\nSuccessfully created philo n. %d\n", nb);
     return (SUCCESS);
 }
 
@@ -99,7 +99,6 @@ int create_philo_threads(t_data *data, int philo_nb)
 
     first = data->first;
     add_philo_chain(data->nb_philo, first);
-    //TODO: create thread for all
 
     tmp = first;
     // pthread_create(&data->first->td, NULL, ft_live, (void *)first);
@@ -154,6 +153,7 @@ t_data *init_data(int argc, char **argv)
     pthread_mutex_init(&data->print_action, NULL);
     pthread_mutex_init(&data->death_mutex, NULL);
     pthread_mutex_init(&data->eat_mutex, NULL);
+    pthread_mutex_init(&data->sleep_think_mutex, NULL);
     printf("\n nb of philo : %d", data->nb_philo);
     printf("\n time to die : %d", data->ttd);
     printf("\n time to eat: %d", data->tte);
