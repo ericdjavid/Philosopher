@@ -37,10 +37,10 @@ void *death_upcoming(void *phil)
 
     while (is_philo_dead(philo->data, FALSE) == FALSE)
     {
-        ft_usleep(philo->data->ttd);
+        ft_usleep(philo->data->ttd + 2);
         pthread_mutex_lock(&philo->data->eat_mutex);
         long int delta_eaten_time = actual_time() - philo->eaten_time;
-        printf(YELLOW"Philo %d, delta (actual time - beg eat time) is %d\n"END, philo->id, delta_eaten_time);
+        // printf(YELLOW"Philo %d, delta (actual time - beg eat time) is %ld\n"END, philo->id, delta_eaten_time);
         // if (philo->start_eating == FALSE)
         if ((delta_eaten_time) >= philo->data->ttd && philo->start_eating == FALSE)
         {

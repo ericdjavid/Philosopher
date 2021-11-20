@@ -154,9 +154,9 @@ t_data *init_data(int argc, char **argv)
     pthread_mutex_init(&data->death_mutex, NULL);
     pthread_mutex_init(&data->eat_mutex, NULL);
     pthread_mutex_init(&data->sleep_think_mutex, NULL);
-    printf("\n nb of philo : %d", data->nb_philo);
-    printf("\n time to die : %d", data->ttd);
-    printf("\n time to eat: %d", data->tte);
-    printf("\n time to sleep: %d", data->tts);
+    // printf("\n nb of philo : %d", data->nb_philo);
+    // printf("\n time to die : %d", data->ttd);
+    // printf("\n time to eat: %d", data->tte);
+    // printf("\n time to sleep: %d", data->tts);
     return (data);
 }

@@ -41,6 +41,8 @@ void *ft_live(void *philo)
     clone = (t_philo *)philo;
     clone->initial_time = actual_time();
     //create death thread
+    if (clone->id % 2 == 0)
+		ft_usleep(clone->data->tte / 10);
     // pthread_create(&clone->data->death, NULL, death_upcoming, (void *)philo);
     pthread_create(&clone->death, NULL, death_upcoming, (void *)clone);
     // printf(BLUE"process philo %d initiated\n"END, clone->id);
@@ -52,6 +54,12 @@ void *ft_live(void *philo)
             // TODO: FORK PROCESS
             pthread_mutex_lock(&clone->left_fork);
             print_action(clone, "has taken a fork");
+            if (!clone->right_fork)
+	        {
+                print_action(philo, RED "died" END);
+                is_philo_dead(clone->data, TRUE);
+                return (NULL);
+	        }
             pthread_mutex_lock(clone->right_fork);
             print_action(clone, "has taken a fork");
             clone->start_eating = TRUE;
@@ -64,29 +72,32 @@ void *ft_live(void *philo)
             // print_action(clone, "finished eating");
         }
         pthread_mutex_unlock(&clone->data->eat_mutex);
-        // pthread_mutex_lock(&clone->data->sleep_think_mutex);
+        pthread_mutex_lock(&clone->data->sleep_think_mutex);
         if (clone->has_slept == FALSE)
         {
             print_action(clone, "started sleeping");
             ft_usleep(clone->data->tts);
             print_action(clone, "started thinking");
-            // pthread_mutex_unlock(&clone->data->sleep_think_mutex);
+            clone->has_slept = TRUE;
+            pthread_mutex_unlock(&clone->data->sleep_think_mutex);
             // print_action(clone, "finished sleeping");
             // clone->eaten_time = actual_time();
         }
-        // pthread_mutex_unlock(&clone->data->sleep_think_mutex);
+        pthread_mutex_unlock(&clone->data->sleep_think_mutex);
         pthread_mutex_lock(&clone->data->eat_mutex);
+        pthread_mutex_lock(&clone->data->sleep_think_mutex);
         if (clone->start_eating && clone->has_slept)
         {
             clone->start_eating = FALSE;
+            clone->has_slept = FALSE;
+            pthread_mutex_unlock(&clone->data->sleep_think_mutex);
             pthread_mutex_unlock(&clone->data->eat_mutex);
             // TODO : PBM with start thinking
             // print_action(clone, "started thinking");
-        // pthread_mutex_lock(&clone->data->sleep_think_mutex);
-            clone->has_slept = FALSE;
-        // pthread_mutex_unlock(&clone->data->sleep_think_mutex);
         }
+        pthread_mutex_unlock(&clone->data->sleep_think_mutex);
         pthread_mutex_unlock(&clone->data->eat_mutex);
+        // pthread_mutex_unlock(&clone->data->sleep_think_mutex);
     }
     // printf("\nFinished loop %d", clone->id);
     pthread_exit(NULL);
