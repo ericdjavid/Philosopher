@@ -35,6 +35,7 @@ int init_philo(t_data *data)
     pthread_mutex_init(&philo->left_fork, NULL);
     philo->right_fork = NULL;
     data->first = philo;
+    printf("\nSuccessfully created philo n.1\n");
     return (SUCCESS);
 }
 
@@ -101,6 +102,7 @@ int create_philo_threads(t_data *data, int philo_nb)
     //TODO: create thread for all
 
     tmp = first;
+    // pthread_create(&data->first->td, NULL, ft_live, (void *)first);
     while (i < data->nb_philo)
     {
         ret = pthread_create(&tmp->td, NULL, ft_live, (void *)tmp);

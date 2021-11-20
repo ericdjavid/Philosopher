@@ -45,10 +45,13 @@ void join_threads(t_philo *first)
     tmp = first;
     while (tmp->next)
     {
-        (void)pthread_join(tmp->td, NULL);
-        // (void)pthread_join(tmp->death, NULL);
         tmp = tmp->next;
+        // printf("I am joining threads of philo n. %d\n", tmp->id);
+        (void)pthread_join(tmp->td, NULL);
+        (void)pthread_join(tmp->death, NULL);
     }
+    (void)pthread_join(first->td, NULL);
+    (void)pthread_join(first->death, NULL);
 }
 
 void destroy_mutex(t_philo *first)
@@ -77,8 +80,7 @@ int main(int argc, char **argv)
 
     //TODO: wait for end of threads before the end of main
     join_threads(data->first);
-    // (void)pthread_join(data->first->td, &ret);
-    (void)pthread_join(data->death, &ret);
+    // (void)pthread_join(data->first->next->death, &ret);
     //Conditional jump or move depends on uninitialised value(s) ??
 
     pthread_mutex_destroy(&data->death_mutex);

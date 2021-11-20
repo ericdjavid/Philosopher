@@ -38,8 +38,9 @@ void *ft_live(void *philo)
     clone = (t_philo *)philo;
     clone->initial_time = actual_time();
     //create death thread
-    pthread_create(&clone->data->death, NULL, death_upcoming, (void *)philo);
-    // pthread_create(&clone->death, NULL, death_upcoming, (void *)clone);
+    // pthread_create(&clone->data->death, NULL, death_upcoming, (void *)philo);
+    pthread_create(&clone->death, NULL, death_upcoming, (void *)clone);
+    printf(BLUE"process philo %d initiated\n"END, clone->id);
     while (is_philo_dead(clone->data, FALSE) == FALSE)
     {
         i++;

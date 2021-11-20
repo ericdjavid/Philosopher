@@ -27,6 +27,8 @@
 #define END "\033[0m"
 #define YELLOW "\033[93m"
 #define RED "\033[91m"
+#define BLUE "\033[0;34m"
+#define CYAN "\033[0;36m"
 
 typedef enum s_bool
 {
@@ -41,7 +43,7 @@ typedef struct s_philo
 {
     int id;
     pthread_t td;
-    // pthread_t death;
+    pthread_t death;
     pthread_mutex_t left_fork;
     pthread_mutex_t *right_fork;
     struct s_philo *next;
@@ -64,7 +66,7 @@ typedef struct s_data
     pthread_mutex_t print_action;
     pthread_mutex_t death_mutex;
     pthread_mutex_t eat_mutex;
-    pthread_t death;
+    // pthread_t death;
     t_philo *first;
     t_bool is_philo_dead;
 } t_data;
