@@ -37,36 +37,22 @@ void *death_upcoming(void *phil)
 
     while (is_philo_dead(philo->data, FALSE) == FALSE)
     {
-        ft_usleep(philo->data->ttd + 2);
+        ft_usleep(philo->data->ttd + 1);
         pthread_mutex_lock(&philo->data->eat_mutex);
         long int delta_eaten_time = actual_time() - philo->eaten_time;
         // printf(YELLOW"Philo %d, delta (actual time - beg eat time) is %ld\n"END, philo->id, delta_eaten_time);
         // if (philo->start_eating == FALSE)
         if ((delta_eaten_time) >= philo->data->ttd && philo->start_eating == FALSE)
         {
+            pthread_mutex_unlock(&philo->data->eat_mutex);
             print_action(philo, RED "died" END);
             // pthread_mutex_lock(&philo->data->print_action);
             // printf(RED "\n%ld Philo %d died\n" END, actual_time() - philo->initial_time - i, philo->id);
             is_philo_dead(philo->data, TRUE);
             pthread_mutex_unlock(&philo->data->print_action);
-            pthread_mutex_unlock(&philo->data->eat_mutex);
             pthread_exit(NULL);
         }
         pthread_mutex_unlock(&philo->data->eat_mutex);
     }
     pthread_exit(NULL);
-
-    // ft_usleep(philo->data->ttd + 1);
-    // pthread_mutex_lock(&philo->data->eat_mutex);
-    // if (philo->start_eating == FALSE)
-    // {
-    //     is_philo_dead(philo->data, TRUE);
-    //     pthread_mutex_lock(&philo->data->print_action);
-    //     printf(RED "\n%ld Philo %d died\n" END, actual_time() - philo->initial_time - 1, philo->id);
-    //     pthread_mutex_unlock(&philo->data->print_action);
-    //     pthread_mutex_unlock(&philo->data->eat_mutex);
-    //     pthread_exit(NULL);
-    // }
-    // pthread_mutex_unlock(&philo->data->eat_mutex);
-    // pthread_exit(NULL);
 }
