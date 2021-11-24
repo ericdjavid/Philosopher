@@ -40,13 +40,13 @@ void *death_upcoming(void *phil)
     {
         ft_usleep(philo->data->ttd + 1);
 
-        pthread_mutex_lock(&philo->data->sleep_think_mutex);
-        if (philo->data->optionnal == TRUE && philo->nb_eat == philo->data->cycle)
-        {
-            pthread_mutex_unlock(&philo->data->sleep_think_mutex);
-            pthread_exit(NULL);
-        }
-        pthread_mutex_unlock(&philo->data->sleep_think_mutex);
+        // pthread_mutex_lock(&philo->data->sleep_think_mutex);
+        // if (philo->data->optionnal == TRUE && philo->nb_eat == philo->data->cycle)
+        // {
+        //     pthread_mutex_unlock(&philo->data->sleep_think_mutex);
+        //     pthread_exit(NULL);
+        // }
+        // pthread_mutex_unlock(&philo->data->sleep_think_mutex);
 
         pthread_mutex_lock(&philo->data->eat_mutex);
         long int delta_eaten_time = actual_time() - philo->eaten_time;
