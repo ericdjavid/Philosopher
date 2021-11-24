@@ -28,16 +28,26 @@ t_bool is_philo_dead(t_data *data, t_bool is_dead)
 /* is in milliseconds, if a philosopher doesn’t start eating ’time_to_die’
 milliseconds after starting his last meal or the beginning of the simulation, it
 dies */
-// if current time - time eat > time to die 
+// if current time - time eat > time to die
 void *death_upcoming(void *phil)
 {
     t_philo *philo;
 
     philo = (t_philo *)phil;
 
+    //TODO: PHILO DOESN'T DIE DIRECTLY
     while (is_philo_dead(philo->data, FALSE) == FALSE)
     {
         ft_usleep(philo->data->ttd + 1);
+
+        pthread_mutex_lock(&philo->data->sleep_think_mutex);
+        if (philo->data->optionnal == TRUE && philo->nb_eat == philo->data->cycle)
+        {
+            pthread_mutex_unlock(&philo->data->sleep_think_mutex);
+            pthread_exit(NULL);
+        }
+        pthread_mutex_unlock(&philo->data->sleep_think_mutex);
+
         pthread_mutex_lock(&philo->data->eat_mutex);
         long int delta_eaten_time = actual_time() - philo->eaten_time;
         // printf(YELLOW"Philo %d, delta (actual time - beg eat time) is %ld\n"END, philo->id, delta_eaten_time);

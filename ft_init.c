@@ -30,12 +30,12 @@ int init_philo(t_data *data)
     philo->has_think = FALSE;
     philo->has_slept = FALSE;
     philo->eaten_time = 0;
+    philo->nb_eat = 0;
     philo->data = data;
     philo->initial_time = 0;
     pthread_mutex_init(&philo->left_fork, NULL);
     philo->right_fork = NULL;
     data->first = philo;
-    // printf("\nSuccessfully created philo n.1\n");
     return (SUCCESS);
 }
 
@@ -55,13 +55,13 @@ t_bool new_philo(t_philo *first, int nb)
     philo->data = first->data;
     philo->initial_time = 0;
     philo->eaten_time = 0;
+    philo->nb_eat = 0;
     pthread_mutex_init(&philo->left_fork, NULL);
     philo->right_fork = NULL;
     while (tmp->next != NULL)
         tmp = tmp->next;
     tmp->next = philo;
     philo->next = NULL;
-    // printf("\nSuccessfully created philo n. %d\n", nb);
     return (SUCCESS);
 }
 
@@ -71,7 +71,6 @@ int add_philo_chain(int philo_nb, t_philo *first)
     int i;
 
     i = 1;
-    printf("\nphilo nb is %d\n", philo_nb);
     tmp = first;
     while (i++ < philo_nb)
         new_philo(first, i);
@@ -101,7 +100,6 @@ int create_philo_threads(t_data *data, int philo_nb)
     add_philo_chain(data->nb_philo, first);
 
     tmp = first;
-    // pthread_create(&data->first->td, NULL, ft_live, (void *)first);
     while (i < data->nb_philo)
     {
         ret = pthread_create(&tmp->td, NULL, ft_live, (void *)tmp);
@@ -120,7 +118,7 @@ int get_values(char *str)
 {
     int i;
     int size;
-    int nb;
+    long long unsigned nb;
 
     i = 0;
     nb = 0;
@@ -132,6 +130,8 @@ int get_values(char *str)
         nb = nb + ((str[i] - '0'));
         i++;
     }
+    if (nb >= INT_MAX)
+        return (INT_MAX - 1);
     return (nb);
 }
 
@@ -143,13 +143,26 @@ t_data *init_data(int argc, char **argv)
     if (data == NULL)
         return (NULL);
     data->optionnal = FALSE;
-    if (argc == 5)
+    if (argc == 6)
         data->optionnal = TRUE;
+    //TODO: PBM WHEN PARSING (ex 00)
     data->nb_philo = get_values(argv[1]);
     data->ttd = get_values(argv[2]);
     data->tte = get_values(argv[3]);
     data->tts = get_values(argv[4]);
     data->is_philo_dead = FALSE;
+    if (data->optionnal == TRUE)
+        data->cycle = get_values(argv[5]);
+    else
+        data->cycle = 0;
+    if (data->nb_philo == 0 || data->nb_philo == FAILURE || data->ttd == FAILURE || data->tte == FAILURE || data->tts == FAILURE || data->cycle == FAILURE || data->ttd == 0)
+    {
+        printf(RED "Argument error\n" END);
+        free(data);
+        return (NULL);
+    }
+
+    // printf("cycle is %d", data->cycle);
     pthread_mutex_init(&data->print_action, NULL);
     pthread_mutex_init(&data->death_mutex, NULL);
     pthread_mutex_init(&data->eat_mutex, NULL);

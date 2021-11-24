@@ -20,6 +20,7 @@
 #include <pthread.h>
 #include <sys/time.h>
 #include <unistd.h>
+#include <limits.h>
 
 #define FAILURE -1
 #define SUCCESS 0
@@ -53,6 +54,7 @@ typedef struct s_philo
     struct s_data *data;
     long int initial_time;
     long int eaten_time;
+    int nb_eat;
 } t_philo;
 
 typedef struct s_data
@@ -70,6 +72,7 @@ typedef struct s_data
     // pthread_t death;
     t_philo *first;
     t_bool is_philo_dead;
+    int cycle;
 } t_data;
 
 /*

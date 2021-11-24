@@ -75,6 +75,8 @@ int main(int argc, char **argv)
     if (argc != 5 && argc != 6)
         return (1);
     data = init_data(argc, argv);
+    if (!data)
+        return 1;
 
     if (create_philo_threads(data, data->nb_philo) == FAILURE)
         return 2;

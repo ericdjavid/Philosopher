@@ -23,15 +23,13 @@ int print_action(t_philo *philo, char *action)
         return 1;
     }
     pthread_mutex_unlock(&philo->data->death_mutex);
-    time = actual_time() - philo->initial_time;
     pthread_mutex_lock(&philo->data->print_action);
+    time = actual_time() - philo->initial_time;
     printf("\n%ld Philosopher %d %s\n", time, philo->id, action);
     pthread_mutex_unlock(&philo->data->print_action);
     return (SUCCESS);
 }
 
-
-//TODO: OPTION FACULTATIVE
 void *ft_live(void *philo)
 {
     t_philo *clone;
@@ -42,7 +40,7 @@ void *ft_live(void *philo)
     clone->initial_time = actual_time();
     //create death thread
     if (clone->id % 2 == 0)
-		ft_usleep(clone->data->tte / 10);
+        ft_usleep(clone->data->tte / 10);
     // pthread_create(&clone->data->death, NULL, death_upcoming, (void *)philo);
     pthread_create(&clone->death, NULL, death_upcoming, (void *)clone);
     // printf(BLUE"process philo %d initiated\n"END, clone->id);
@@ -54,19 +52,20 @@ void *ft_live(void *philo)
             pthread_mutex_unlock(&clone->data->eat_mutex);
             // TODO: FORK PROCESS
             pthread_mutex_lock(&clone->left_fork);
-            // print_action(clone, "has taken a fork");
+            print_action(clone, "has taken a fork");
             if (!clone->right_fork)
-	        {
+            {
+                ft_usleep(clone->data->ttd);
                 print_action(philo, RED "died" END);
                 is_philo_dead(clone->data, TRUE);
                 pthread_mutex_unlock(&clone->left_fork);
                 return (NULL);
-	        }
+            }
             pthread_mutex_lock(clone->right_fork);
             // print_action(clone, "has taken a fork");
 
             pthread_mutex_lock(&clone->data->eat_mutex);
-            print_action(clone, "has taken a fork");
+            // print_action(clone, "has taken a fork");
             print_action(clone, "has taken a fork");
             clone->start_eating = TRUE;
             clone->eaten_time = actual_time();
@@ -80,7 +79,18 @@ void *ft_live(void *philo)
         pthread_mutex_lock(&clone->data->sleep_think_mutex);
         if (clone->has_slept == FALSE)
         {
+            clone->nb_eat++;
+            // pthread_mutex_lock(&clone->data->print_action);
+            // printf("clone %d has eaten %d time\n", clone->id, clone->nb_eat);
+            // pthread_mutex_unlock(&clone->data->print_action);
             print_action(clone, "started sleeping");
+            if (clone->data->optionnal == TRUE)
+                if (clone->nb_eat == clone->data->cycle)
+                {
+                    // print_action(clone, RED "Cycle finished" END);
+                    pthread_mutex_unlock(&clone->data->sleep_think_mutex);
+                    return (NULL);
+                }
             clone->has_slept = TRUE;
             pthread_mutex_unlock(&clone->data->sleep_think_mutex);
             ft_usleep(clone->data->tts);
@@ -92,10 +102,18 @@ void *ft_live(void *philo)
         {
             clone->start_eating = FALSE;
             clone->has_slept = FALSE;
+            // if (clone->data->optionnal == TRUE)
+            // if (clone->nb_eat == clone->data->cycle)
+            // {
+            //     // print_action(clone, RED "Cycle finished" END);
+            //     pthread_mutex_unlock(&clone->data->sleep_think_mutex);
+            //     pthread_mutex_unlock(&clone->data->eat_mutex);
+            //     return (NULL);
+            // }
         }
         pthread_mutex_unlock(&clone->data->sleep_think_mutex);
         pthread_mutex_unlock(&clone->data->eat_mutex);
-        print_action(clone, BLUE"Finished loop"END);
+        // print_action(clone, BLUE "Finished loop" END);
     }
     pthread_exit(NULL);
 }
