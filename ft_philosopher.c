@@ -70,7 +70,6 @@ void destroy_mutex(t_philo *first)
 int main(int argc, char **argv)
 {
     t_data *data;
-    void *ret;
 
     if (argc != 5 && argc != 6)
         return (1);
@@ -78,7 +77,7 @@ int main(int argc, char **argv)
     if (!data)
         return 1;
 
-    if (create_philo_threads(data, data->nb_philo) == FAILURE)
+    if (create_philo_threads(data) == FAILURE)
         return 2;
 
     join_threads(data->first);

@@ -33,8 +33,6 @@ int print_action(t_philo *philo, char *action)
 void *ft_live(void *philo)
 {
     t_philo *clone;
-    int i = 0;
-    long int timer;
 
     clone = (t_philo *)philo;
     clone->initial_time = actual_time();
@@ -79,18 +77,18 @@ void *ft_live(void *philo)
         pthread_mutex_lock(&clone->data->sleep_think_mutex);
         if (clone->has_slept == FALSE)
         {
-            // clone->nb_eat++;
+            clone->nb_eat++;
             // pthread_mutex_lock(&clone->data->print_action);
             // printf("clone %d has eaten %d time\n", clone->id, clone->nb_eat);
             // pthread_mutex_unlock(&clone->data->print_action);
             print_action(clone, "started sleeping");
-            // if (clone->data->optionnal == TRUE)
-            //     if (clone->nb_eat == clone->data->cycle)
-            //     {
-            //         // print_action(clone, RED "Cycle finished" END);
-            //         pthread_mutex_unlock(&clone->data->sleep_think_mutex);
-            //         return (NULL);
-            //     }
+            if (clone->data->optionnal == TRUE)
+                if (clone->nb_eat == clone->data->cycle)
+                {
+                    // print_action(clone, RED "Cycle finished" END);
+                    pthread_mutex_unlock(&clone->data->sleep_think_mutex);
+                    return (NULL);
+                }
             clone->has_slept = TRUE;
             pthread_mutex_unlock(&clone->data->sleep_think_mutex);
             ft_usleep(clone->data->tts);
@@ -102,14 +100,6 @@ void *ft_live(void *philo)
         {
             clone->start_eating = FALSE;
             clone->has_slept = FALSE;
-            // if (clone->data->optionnal == TRUE)
-            // if (clone->nb_eat == clone->data->cycle)
-            // {
-            //     // print_action(clone, RED "Cycle finished" END);
-            //     pthread_mutex_unlock(&clone->data->sleep_think_mutex);
-            //     pthread_mutex_unlock(&clone->data->eat_mutex);
-            //     return (NULL);
-            // }
         }
         pthread_mutex_unlock(&clone->data->sleep_think_mutex);
         pthread_mutex_unlock(&clone->data->eat_mutex);

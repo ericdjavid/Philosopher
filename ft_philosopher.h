@@ -80,7 +80,7 @@ typedef struct s_data
 */
 t_data *init_data(int argc, char **argv);
 int ft_strlen(char *str);
-int create_philo_threads(t_data *data, int philo_nb);
+int create_philo_threads(t_data *data);
 void *affect_forks(void *ptr);
 int ft_free_all(t_data *data);
 int init_philo(t_data *data);

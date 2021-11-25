@@ -12,11 +12,6 @@
 
 #include "ft_philosopher.h"
 
-void *affect_forks(void *data)
-{
-    printf("\nthread created for philo");
-}
-
 int init_philo(t_data *data)
 {
     t_philo *philo;
@@ -84,7 +79,7 @@ int add_philo_chain(int philo_nb, t_philo *first)
     return (SUCCESS);
 }
 
-int create_philo_threads(t_data *data, int philo_nb)
+int create_philo_threads(t_data *data)
 {
     t_philo *first;
     t_philo *tmp;
@@ -117,7 +112,6 @@ int create_philo_threads(t_data *data, int philo_nb)
 int get_values(char *str)
 {
     int i;
-    int size;
     long long unsigned nb;
 
     i = 0;
