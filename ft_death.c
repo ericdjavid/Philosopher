@@ -6,7 +6,7 @@
 /*   By: edjavid <e.djavid@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 19:06:58 by edjavid           #+#    #+#             */
-/*   Updated: 2021/11/25 19:51:07 by edjavid          ###   ########.fr       */
+/*   Updated: 2021/11/25 21:54:40 by edjavid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	*death_upcoming(void *phil)
 	philo = (t_philo *)phil;
 	while (is_philo_dead(philo->data, FALSE) == FALSE)
 	{
-		ft_usleep(philo->data->ttd);
-		if (philo->data->optionnal && philo->nb_eat == philo->data->cycle)
+		ft_usleep(philo->data->ttd + 1);
+		if ((philo->data->optionnal) && (philo->nb_eat == philo->data->cycle))
 			pthread_exit(NULL);
 		pthread_mutex_lock(&philo->data->eat_mutex);
 		delta_eaten_time = actual_time() - philo->eaten_time;

@@ -6,7 +6,7 @@
 /*   By: edjavid <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 15:29:57 by edjavid           #+#    #+#             */
-/*   Updated: 2021/11/25 20:30:57 by edjavid          ###   ########.fr       */
+/*   Updated: 2021/11/25 21:55:57 by edjavid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@
 ** Structures
 */
 
-typedef enum	s_bool
+typedef enum s_bool
 {
 	FALSE,
 	TRUE
 }	t_bool;
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	int				id;
 	pthread_t		td;
@@ -52,13 +52,13 @@ typedef struct	s_philo
 	t_bool			start_eating;
 	t_bool			has_slept;
 	t_bool			has_think;
-	struct			s_data *data;
+	struct s_data	*data;
 	long int		initial_time;
 	long int		eaten_time;
 	int				nb_eat;
 }	t_philo;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	int				nb_philo;
 	long int		initial_time;
@@ -73,7 +73,7 @@ typedef struct	s_data
 	t_philo			*first;
 	t_bool			is_philo_dead;
 	int				cycle;
-} t_data;
+}	t_data;
 
 /*
 ** functions
