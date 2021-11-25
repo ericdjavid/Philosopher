@@ -60,6 +60,7 @@ typedef struct s_philo
 typedef struct s_data
 {
     int nb_philo;
+    long int initial_time;
     t_bool optionnal;
     int ttd;
     int tte;

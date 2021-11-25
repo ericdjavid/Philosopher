@@ -95,6 +95,7 @@ int create_philo_threads(t_data *data)
     add_philo_chain(data->nb_philo, first);
 
     tmp = first;
+    data->initial_time = actual_time();
     while (i < data->nb_philo)
     {
         ret = pthread_create(&tmp->td, NULL, ft_live, (void *)tmp);
@@ -145,6 +146,7 @@ t_data *init_data(int argc, char **argv)
     data->tte = get_values(argv[3]);
     data->tts = get_values(argv[4]);
     data->is_philo_dead = FALSE;
+    data->initial_time = 0;
     if (data->optionnal == TRUE)
         data->cycle = get_values(argv[5]);
     else

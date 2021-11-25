@@ -12,7 +12,7 @@
 
 #include "ft_philosopher.h"
 
-t_bool is_philo_dead(t_data *data, t_bool is_dead)
+t_bool  is_philo_dead(t_data *data, t_bool is_dead)
 {
     pthread_mutex_lock(&data->death_mutex);
     if (is_dead == TRUE)
@@ -35,25 +35,25 @@ void *death_upcoming(void *phil)
 
     philo = (t_philo *)phil;
 
-    //TODO: PHILO DOESN'T DIE DIRECTLY
     while (is_philo_dead(philo->data, FALSE) == FALSE)
     {
-        ft_usleep(philo->data->ttd + 1);
+        ft_usleep(philo->data->ttd);
 
-        pthread_mutex_lock(&philo->data->sleep_think_mutex);
+        // pthread_mutex_lock(&philo->data->sleep_think_mutex);
         if (philo->data->optionnal == TRUE && philo->nb_eat == philo->data->cycle)
         {
-            pthread_mutex_unlock(&philo->data->sleep_think_mutex);
+            // pthread_mutex_unlock(&philo->data->sleep_think_mutex);
             pthread_exit(NULL);
         }
-        pthread_mutex_unlock(&philo->data->sleep_think_mutex);
 
         pthread_mutex_lock(&philo->data->eat_mutex);
         long int delta_eaten_time = actual_time() - philo->eaten_time;
         // printf(YELLOW"Philo %d, delta (actual time - beg eat time) is %ld\n"END, philo->id, delta_eaten_time);
         // if (philo->start_eating == FALSE)
+        pthread_mutex_lock(&philo->data->sleep_think_mutex);
         if ((delta_eaten_time) >= philo->data->ttd && philo->start_eating == FALSE)
         {
+            pthread_mutex_unlock(&philo->data->sleep_think_mutex);
             pthread_mutex_unlock(&philo->data->eat_mutex);
             print_action(philo, RED "died" END);
             // pthread_mutex_lock(&philo->data->print_action);
@@ -62,6 +62,7 @@ void *death_upcoming(void *phil)
             pthread_exit(NULL);
         }
         pthread_mutex_unlock(&philo->data->eat_mutex);
+            pthread_mutex_unlock(&philo->data->sleep_think_mutex);
     }
     pthread_exit(NULL);
 }

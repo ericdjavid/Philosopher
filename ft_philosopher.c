@@ -81,9 +81,6 @@ int main(int argc, char **argv)
         return 2;
 
     join_threads(data->first);
-    // (void)pthread_join(data->first->next->death, &ret);
-    //Conditional jump or move depends on uninitialised value(s) ??
-
     pthread_mutex_destroy(&data->death_mutex);
     pthread_mutex_destroy(&data->eat_mutex);
     pthread_mutex_destroy(&data->print_action);
