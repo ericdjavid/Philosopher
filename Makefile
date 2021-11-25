@@ -39,7 +39,7 @@ $(NAME):
 
 skiperror:
 	@echo "$<[$(C_CYAN)Compiling skipping errors$(C_END)]"
-	@gcc -g -pthread -ggdb -fsanitize=thread -D_REENTRANT -o $(NAME) $(SRC)
+	@gcc -g -pthread -ggdb -D_REENTRANT -o $(NAME) $(SRC)
 	@echo "$<[$(C_GREEN)OK$(C_END)]"
 
 clean:
