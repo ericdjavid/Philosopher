@@ -6,7 +6,7 @@
 #    By: tallaire <tallaire@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/27 18:14:57 by tallaire          #+#    #+#              #
-#    Updated: 2021/05/27 18:15:03 by tallaire         ###   ########.fr        #
+#    Updated: 2021/11/25 20:10:21 by edjavid          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ $(NAME):
 
 skiperror:
 	@echo "$<[$(C_CYAN)Compiling skipping errors$(C_END)]"
-	@gcc -g -pthread -ggdb -D_REENTRANT -fsanitize=thread -o $(NAME) $(SRC)
+	@gcc -g -pthread -ggdb -D_REENTRANT -o $(NAME) $(SRC)
 	@echo "$<[$(C_GREEN)OK$(C_END)]"
 
 clean:
