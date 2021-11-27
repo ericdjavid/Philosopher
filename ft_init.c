@@ -6,7 +6,7 @@
 /*   By: edjavid <e.djavid@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 17:20:13 by edjavid           #+#    #+#             */
-/*   Updated: 2021/11/25 20:21:55 by edjavid          ###   ########.fr       */
+/*   Updated: 2021/11/27 13:15:53 by edjavid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,10 @@ void	init_data2(t_data *data)
 	pthread_mutex_init(&data->death_mutex, NULL);
 	pthread_mutex_init(&data->eat_mutex, NULL);
 	pthread_mutex_init(&data->sleep_think_mutex, NULL);
+	if (data->tte > data->ttd)
+		data->tte = data->ttd + 1;
+	if (data->tts > data->ttd)
+		data->tts = data->ttd + 1;
 }
 
 t_data	*init_data(int argc, char **argv)
@@ -112,8 +116,6 @@ t_data	*init_data(int argc, char **argv)
 	data->cycle = 0;
 	if (data->optionnal == TRUE)
 		data->cycle = get_values(argv[5]);
-	if (data->tte > data->ttd)
-		data->tte = data->ttd + 1;
 	if (data->nb_philo == 0 || data->nb_philo == FAILURE
 		|| data->ttd == FAILURE || data->tte == FAILURE || data->tts == FAILURE
 		|| data->cycle == FAILURE || data->ttd == 0)
@@ -122,5 +124,6 @@ t_data	*init_data(int argc, char **argv)
 		free(data);
 		return (NULL);
 	}
+	init_data2(data);
 	return (data);
 }

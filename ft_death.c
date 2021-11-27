@@ -6,7 +6,7 @@
 /*   By: edjavid <e.djavid@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 19:06:58 by edjavid           #+#    #+#             */
-/*   Updated: 2021/11/25 21:54:40 by edjavid          ###   ########.fr       */
+/*   Updated: 2021/11/27 13:47:48 by edjavid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,15 @@ t_bool	is_philo_dead(t_data *data, t_bool is_dead)
 	return (FALSE);
 }
 
+void	ft_die(t_philo *philo)
+{
+	pthread_mutex_unlock(&philo->data->sleep_think_mutex);
+	pthread_mutex_unlock(&philo->data->eat_mutex);
+	print_action(philo, RED "died" END);
+	is_philo_dead(philo->data, TRUE);
+	pthread_exit(NULL);
+}
+
 void	*death_upcoming(void *phil)
 {
 	t_philo		*philo;
@@ -41,14 +50,9 @@ void	*death_upcoming(void *phil)
 		delta_eaten_time = actual_time() - philo->eaten_time;
 		pthread_mutex_lock(&philo->data->sleep_think_mutex);
 		if (((delta_eaten_time) >= philo->data->ttd
-			&& philo->start_eating == FALSE) || (philo->data->ttd < (philo->data->tts + philo->data->tte)))
-		{
-			pthread_mutex_unlock(&philo->data->sleep_think_mutex);
-			pthread_mutex_unlock(&philo->data->eat_mutex);
-			print_action(philo, RED "died" END);
-			is_philo_dead(philo->data, TRUE);
-			pthread_exit(NULL);
-		}
+				&& philo->start_eating == FALSE)
+			|| (philo->data->ttd < (philo->data->tts + philo->data->tte)))
+			ft_die(philo);
 		pthread_mutex_unlock(&philo->data->eat_mutex);
 		pthread_mutex_unlock(&philo->data->sleep_think_mutex);
 	}

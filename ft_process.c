@@ -18,7 +18,7 @@ int	print_action(t_philo *philo, char *action)
 	if (philo->data->is_philo_dead == TRUE)
 	{
 		pthread_mutex_unlock(&philo->data->death_mutex);
-		return (1);
+		return (FAILURE);
 	}
 	pthread_mutex_unlock(&philo->data->death_mutex);
 	pthread_mutex_lock(&philo->data->print_action);

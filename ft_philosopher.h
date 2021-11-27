@@ -6,7 +6,7 @@
 /*   By: edjavid <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 15:29:57 by edjavid           #+#    #+#             */
-/*   Updated: 2021/11/25 22:44:43 by edjavid          ###   ########.fr       */
+/*   Updated: 2021/11/27 13:14:21 by edjavid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void		*death_upcoming(void *phil);
 t_bool		is_philo_dead(t_data *data, t_bool is_dead);
 int			get_values(char *str);
 int			ft_sleep_think(t_philo *clone);
-void			ft_fork_eat(t_philo *clone);
+void		ft_fork_eat(t_philo *clone);
 int			ft_eating_time(t_philo *clone);
 
 #endif
