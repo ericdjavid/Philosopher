@@ -26,7 +26,6 @@ t_bool	new_philo(t_philo *first, int nb)
 	philo->has_think = FALSE;
 	philo->has_slept = FALSE;
 	philo->data = first->data;
-	philo->initial_time = 0;
 	philo->eaten_time = 0;
 	philo->nb_eat = 0;
 	pthread_mutex_init(&philo->left_fork, NULL);
@@ -110,10 +109,11 @@ t_data	*init_data(int argc, char **argv)
 	data->ttd = get_values(argv[2]);
 	data->tte = get_values(argv[3]);
 	data->tts = get_values(argv[4]);
+	data->cycle = 0;
 	if (data->optionnal == TRUE)
 		data->cycle = get_values(argv[5]);
-	else
-		data->cycle = 0;
+	if (data->tte > data->ttd)
+		data->tte = data->ttd + 1;
 	if (data->nb_philo == 0 || data->nb_philo == FAILURE
 		|| data->ttd == FAILURE || data->tte == FAILURE || data->tts == FAILURE
 		|| data->cycle == FAILURE || data->ttd == 0)

@@ -56,7 +56,6 @@ typedef struct s_philo
 	t_bool			has_slept;
 	t_bool			has_think;
 	struct s_data	*data;
-	long int		initial_time;
 	long int		eaten_time;
 	int				nb_eat;
 }	t_philo;
@@ -98,7 +97,7 @@ void		*death_upcoming(void *phil);
 t_bool		is_philo_dead(t_data *data, t_bool is_dead);
 int			get_values(char *str);
 int			ft_sleep_think(t_philo *clone);
-void		ft_fork_eat(t_philo *clone);
+void			ft_fork_eat(t_philo *clone);
 int			ft_eating_time(t_philo *clone);
 
 #endif

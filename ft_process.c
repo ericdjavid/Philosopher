@@ -6,7 +6,7 @@
 /*   By: edjavid <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 18:19:37 by edjavid           #+#    #+#             */
-/*   Updated: 2021/11/25 22:52:16 by edjavid          ###   ########.fr       */
+/*   Updated: 2021/11/25 22:52:50 by edjavid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	ft_sleep_think(t_philo *clone)
 		ft_usleep(clone->data->ttd);
 		print_action(clone, RED "died" END);
 		is_philo_dead(clone->data, TRUE);
+		return (FAILURE);
 	}
 	if (clone->data->optionnal == TRUE
 		&& clone->nb_eat == clone->data->cycle)

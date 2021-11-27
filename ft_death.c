@@ -40,8 +40,8 @@ void	*death_upcoming(void *phil)
 		pthread_mutex_lock(&philo->data->eat_mutex);
 		delta_eaten_time = actual_time() - philo->eaten_time;
 		pthread_mutex_lock(&philo->data->sleep_think_mutex);
-		if ((delta_eaten_time) >= philo->data->ttd
-			&& philo->start_eating == FALSE)
+		if (((delta_eaten_time) >= philo->data->ttd
+			&& philo->start_eating == FALSE) || (philo->data->ttd < (philo->data->tts + philo->data->tte)))
 		{
 			pthread_mutex_unlock(&philo->data->sleep_think_mutex);
 			pthread_mutex_unlock(&philo->data->eat_mutex);

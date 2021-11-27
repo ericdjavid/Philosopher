@@ -27,7 +27,6 @@ int	init_philo(t_data *data)
 	philo->eaten_time = 0;
 	philo->nb_eat = 0;
 	philo->data = data;
-	philo->initial_time = 0;
 	pthread_mutex_init(&philo->left_fork, NULL);
 	philo->right_fork = NULL;
 	data->first = philo;
