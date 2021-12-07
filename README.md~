@@ -9,7 +9,7 @@ Une structure de philosophe, contenant les éléments propres aux philo (e.g. le "
 Je crée une liste chainée de structure de hilosophes et chaque philo fait l'objet d'un thread qui appelle la fonction "ft_live" 
 Dans la fonction de vie, un sous-thread est créé pour monitorer la "mort" (attention à bien prendre le moment où le philo commence à manger et non le moment où il finit. 
 
-## Faire fonctionner le code :hammer_and_wrench: 
+## Faire fonctionner le code :hamme_and_wrench: 
 git clone xxx 
 make 
 . /philo [nb_phiIo] [time_to_die] [time_to_eat] [optionnal: nb_of_eating_cycles]
