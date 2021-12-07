@@ -14,7 +14,8 @@ Dans la fonction de vie, un sous-thread est créé pour monitorer la "mort" (att
 - make 
 - ./philo [nb_phiIo] [time_to_die] [time_to_eat] [optionnal: nb_of_eating_cycles]
 
+## Visuel
+![edjv](/philo.png)
+
 ## Testeur 
 - https://github.com/MicheIIeJiam/LazyPhiIosophersTester 
-
-![edjv](/philo.png)
