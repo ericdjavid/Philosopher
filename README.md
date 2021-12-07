@@ -10,10 +10,11 @@ Je crée une liste chainée de structure de hilosophes et chaque philo fait l'obje
 Dans la fonction de vie, un sous-thread est créé pour monitorer la "mort" (attention à bien prendre le moment où le philo commence à manger et non le moment où il finit. 
 
 ## Faire fonctionner le code :hammer_and_wrench: 
-git clone xxx 
-make 
-. /philo [nb_phiIo] [time_to_die] [time_to_eat] [optionnal: nb_of_eating_cycles]
+- git clone https://github.com/ericdjavid/Philosopher.git
+- make 
+- ./philo [nb_phiIo] [time_to_die] [time_to_eat] [optionnal: nb_of_eating_cycles]
 
 ## Testeur 
-https://github.com/MicheIIeJiam/LazyPhiIosophersTester 
+- https://github.com/MicheIIeJiam/LazyPhiIosophersTester 
 
+![edjv](/philo.png)
